@@ -7,7 +7,7 @@ export class Brand {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 50, unique: true, nullable: false })
+    @Column({ length: 50, nullable: false })
     name: string;
 
     @Column({ type: 'text', nullable: false })

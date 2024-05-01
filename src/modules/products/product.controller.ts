@@ -11,7 +11,7 @@ export class ProductController {
     @Get()
     async getAll() {
         const result = await this.productService.getAll();
-
+        result.sort((a, b) => a.id - b.id);
         return {
             statusCode: HttpStatus.OK,
             message: "Get successful product",

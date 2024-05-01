@@ -1,5 +1,6 @@
 import { Wishlist } from "src/modules/accounts/entity/wishlist.entity";
 import { Brand } from "src/modules/brands/entity/brand.entity";
+import { Category } from "src/modules/categories/entity/category.entity";
 import { Rating } from "src/modules/evaluations/entity/rate.entity";
 import { Review } from "src/modules/evaluations/entity/reviews.entity";
 import { Image } from "src/modules/images/entity/image.entity";
@@ -59,4 +60,9 @@ export class Product {
 
     @OneToMany(() => Wishlist, wishlist => wishlist.product)
     wishlists: Wishlist[];
+
+    //
+    @ManyToOne(() => Category, category => category.products)
+    @JoinColumn({ name: 'category_id' })
+    category: Category;
 }

@@ -11,6 +11,9 @@ export class CategoryController {
     @Get()
     async getCategories() {
         const result = await this.categoryService.getCategories();
+
+        result.sort((a, b) => a.id - b.id);
+
         return {
             statusCode: HttpStatus.OK,
             message: "Get successful category",

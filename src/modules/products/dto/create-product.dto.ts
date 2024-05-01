@@ -34,4 +34,9 @@ export class CreateProductDto {
     default_image: string;
 
     images: string[];
+
+    // ======
+    @IsNotEmpty()
+    @IsNumber()
+    category_id: number;
 }

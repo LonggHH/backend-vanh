@@ -10,7 +10,7 @@ export class BrandController {
     @Get()
     async getAll() {
         const result = await this.brandService.getAll();
-
+        result.sort((a, b) => a.id - b.id);
         return {
             statusCode: HttpStatus.OK,
             message: "Get successful brand",

@@ -17,7 +17,7 @@ export class ProductService {
     ) { };
 
     async getAll() {
-        return await this.productRepository.find({ relations: ['brand', 'images', 'variations'] });
+        return await this.productRepository.find({ relations: ['brand', 'images', 'variations', 'category'] });
     }
 
     async getById(id: number) {
@@ -25,7 +25,7 @@ export class ProductService {
     }
 
     async create(product: CreateProductDto) {
-        const { name, description, specifications, default_image, discount_percentage, brand_id, price } = product;
+        const { name, description, specifications, default_image, discount_percentage, brand_id, price, category_id } = product;
 
         const queryRunner = this.dataSource.createQueryRunner();
 
@@ -33,8 +33,8 @@ export class ProductService {
         await queryRunner.startTransaction();
 
         try {
-            const result = await queryRunner.manager.query(`INSERT INTO products (name, description, specifications, default_image, brand_id, price, discount_percentage) 
-            VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *;`, [name, description, specifications, default_image, brand_id, price, discount_percentage]);
+            const result = await queryRunner.manager.query(`INSERT INTO products (name, description, specifications, default_image, brand_id, price, discount_percentage, category_id) 
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`, [name, description, specifications, default_image, brand_id, price, discount_percentage, category_id]);
             await queryRunner.commitTransaction();
             return result;
         } catch (err) {
@@ -114,7 +114,7 @@ export class ProductService {
     }
 
     async update(product: any) {
-        const { id, name, description, specifications, default_image, brand_id, active, price } = product;
+        const { id, name, description, specifications, default_image, brand_id, active, price, category_id } = product;
 
         const queryRunner = this.dataSource.createQueryRunner();
 
@@ -123,8 +123,8 @@ export class ProductService {
 
         try {
             const result = await queryRunner.manager.query(
-                `UPDATE products SET name=$1, description=$2, specifications=$3, default_image=$4, brand_id=$5, active=$6, price=$7 WHERE id=$8  RETURNING *;`,
-                [name, description, specifications, default_image, brand_id, active, price, id]);
+                `UPDATE products SET name=$1, description=$2, specifications=$3, default_image=$4, brand_id=$5, active=$6, price=$7, category_id=$8 WHERE id=$9  RETURNING *;`,
+                [name, description, specifications, default_image, brand_id, active, price, category_id, id]);
             await queryRunner.commitTransaction();
             return result;
         } catch (err) {
