@@ -125,4 +125,9 @@ export class EvaluationService {
         return result;
 
     }
+
+    async getProductStar(id: number) {
+        const result = await this.ratingRepository.find({ where: { product: { id } } });
+        return result;
+    }
 }

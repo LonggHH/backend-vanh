@@ -7,8 +7,8 @@ export class LoginDto {
     @IsEmail()
     email: string;
 
-    @IsString()
-    @Length(6, 30)
+    // @IsString()
+    // @Length(6, 30)
     password: string;
 
     @IsEnum(ROLE)

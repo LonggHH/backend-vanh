@@ -31,6 +31,17 @@ export class EvaluationController {
         }
     }
 
+    @Get('stars/:id')
+    async getStarForProduct(@Param('id', ParseIntPipe) id: number) {
+        const result = await this.evaluationService.getProductStar(id);
+
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Get successful review",
+            data: result
+        }
+    }
+
     @Post('create')
     async create(@Body() body: CreateEvaluationDto) {
         await this.evaluationService.createRating(body);
@@ -43,4 +54,5 @@ export class EvaluationController {
             data: body
         }
     }
+
 }

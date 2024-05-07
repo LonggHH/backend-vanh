@@ -37,6 +37,9 @@ export class Account {
     @Column({ name: "password_reset", nullable: true })
     passwordReset: string;
 
+    @Column({ nullable: true })
+    birthday: string;
+
     // // mối quan hệ giữa bảng accounts với bảng orders (2)
     @OneToMany(() => Order, order => order.account)
     orders: Order[];

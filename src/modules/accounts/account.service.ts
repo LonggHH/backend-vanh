@@ -27,7 +27,7 @@ export class AccountService {
     }
 
     async register(account: RegisterDto) {
-        const { name, email, password } = account;
+        const { name, email, password, birthday } = account;
 
         const queryRunner = this.dataSource.createQueryRunner();
 
@@ -35,8 +35,8 @@ export class AccountService {
         await queryRunner.startTransaction();
 
         try {
-            const result = await queryRunner.manager.query(`INSERT INTO accounts (name, email, password) 
-            VALUES($1, $2, $3) RETURNING *;`, [name, email, password]);
+            const result = await queryRunner.manager.query(`INSERT INTO accounts (name, email, password, birthday) 
+            VALUES($1, $2, $3, $4) RETURNING *;`, [name, email, password, birthday]);
             await queryRunner.commitTransaction();
             return result;
         } catch (err) {
