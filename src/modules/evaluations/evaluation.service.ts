@@ -127,7 +127,7 @@ export class EvaluationService {
     }
 
     async getProductStar(id: number) {
-        const result = await this.ratingRepository.find({ where: { product: { id } } });
+        const result = await this.ratingRepository.find({ where: { product: { id } }, relations: ['account'] });
         return result;
     }
 }
